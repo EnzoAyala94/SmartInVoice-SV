@@ -8,6 +8,7 @@
 const { v4: uuidv4 } = require('uuid');
 const { emisor } = require('../config/emisor');
 const { generarNumeroControl } = require('./correlativoService');
+const { numeroALetras } = require('../utils/numeroALetras');
 
 function horaActualElSalvador() {
   const now = new Date();
@@ -92,14 +93,6 @@ function calcularResumen(itemsCalculados, condicionOperacion) {
     ],
     numPagoElectronico: '',
   };
-}
-
-// Conversion simplificada de numero a letras (para totalLetras del resumen)
-function numeroALetras(numero) {
-  // Implementacion simplificada; para produccion usar libreria especializada
-  const entero = Math.floor(numero);
-  const centavos = Math.round((numero - entero) * 100);
-  return `${entero} 00/100 DOLARES (VALOR APROXIMADO - REVISAR EN PRODUCCION) ${centavos}/100`;
 }
 
 /**
