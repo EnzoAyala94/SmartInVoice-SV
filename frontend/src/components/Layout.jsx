@@ -13,9 +13,17 @@ const NAV = [
   { to: '/productos', label: 'Productos' },
 ];
 
+const ROLES_LABEL = {
+  admin: 'Admin',
+  superadmin: 'Super Administrador',
+  facturador: 'Facturador',
+  contador: 'Contador',
+};
+
 export default function Layout({ children }) {
   const { usuario, logout } = useAuth();
-  const nav = usuario?.rol === 'admin' ? [...NAV, { to: '/usuarios', label: 'Usuarios' }] : NAV;
+  const esAdminInterno = usuario?.rol === 'admin' || usuario?.rol === 'superadmin';
+  const nav = esAdminInterno ? [...NAV, { to: '/usuarios', label: 'Usuarios' }] : NAV;
   const [menuAbierto, setMenuAbierto] = useState(false);
 
   function cerrarMenu() {
@@ -56,7 +64,7 @@ export default function Layout({ children }) {
           ))}
         </nav>
         <div className="sidebar-footer">
-          <div style={{ marginBottom: 8 }}>{usuario?.nombre} · <span style={{ textTransform: 'capitalize' }}>{usuario?.rol}</span></div>
+                    <div style={{ marginBottom: 8 }}>{usuario?.nombre} · <span>{ROLES_LABEL[usuario?.rol] || usuario?.rol}</span></div>
           <button className="btn btn-outline btn-sm" style={{ color: '#fff', borderColor: 'rgba(255,255,255,0.3)' }} onClick={logout}>
             Cerrar sesion
           </button>
