@@ -4,6 +4,13 @@ import PasswordInput from '../components/PasswordInput';
 
 const VACIO = { nombreCompleto: '', email: '', password: '', rol: 'contador' };
 
+const ROLES_LABEL = {
+  admin: 'Admin',
+  superadmin: 'Super Administrador',
+  facturador: 'Facturador',
+  contador: 'Contador',
+};
+
 export default function Usuarios() {
   const [usuarios, setUsuarios] = useState([]);
   const [mostrarForm, setMostrarForm] = useState(false);
@@ -130,7 +137,7 @@ export default function Usuarios() {
                 <tr key={u.id}>
                   <td>{u.nombre_completo}</td>
                   <td className="mono">{u.email}</td>
-                  <td style={{ textTransform: 'capitalize' }}>{u.rol}</td>
+                  <td>{ROLES_LABEL[u.rol] || u.rol}</td>
                   <td>
                     <span className={`badge ${u.activo ? 'badge-procesado' : 'badge-anulado'}`}>
                       {u.activo ? 'Activo' : 'Inactivo'}
