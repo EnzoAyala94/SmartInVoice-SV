@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
 import api, { API_BASE } from '../api/client';
 import EstadoBadge from '../components/EstadoBadge';
+import { useAuth } from '../context/AuthContext';
 
 const NOMBRES_TIPO_DTE = { '01': 'Factura', '03': 'CCF', '05': 'Nota de Credito', '06': 'Nota de Debito' };
 
 export default function HistorialDtes() {
+  const { usuario } = useAuth();
+  const puedeAnular = usuario?.rol !== 'contador';
   const [dtes, setDtes] = useState([]);
   const [filtros, setFiltros] = useState({ estado: '', desde: '', hasta: '' });
   const [cargando, setCargando] = useState(true);
@@ -103,7 +106,7 @@ export default function HistorialDtes() {
                   <td style={{ display: 'flex', gap: 6 }}>
                     <a className="btn btn-sm btn-outline" href={`${API_BASE}/dtes/${d.id}/pdf`} target="_blank" rel="noreferrer">PDF</a>
                     <a className="btn btn-sm btn-outline" href={`${API_BASE}/dtes/${d.id}/excel`} target="_blank" rel="noreferrer">Excel</a>
-                    {d.estado !== 'ANULADO' && (
+                    {puedeAnular && d.estado !== 'ANULADO' && (
                       <button className="btn btn-sm btn-danger-outline" onClick={() => anular(d.id)}>Anular</button>
                     )}
                   </td>
