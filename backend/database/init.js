@@ -175,6 +175,7 @@ const insertRol = db.prepare('INSERT OR IGNORE INTO roles (nombre, descripcion) 
 insertRol.run('admin', 'Administrador del sistema, acceso total');
 insertRol.run('facturador', 'Puede emitir y anular DTE');
 insertRol.run('contador', 'Solo lectura y reportes');
+insertRol.run('superadmin', 'Super administrador, acceso total al sistema');
 
 // Seed de usuario admin por defecto (password: Admin123!)
 const adminExists = db.prepare('SELECT id FROM usuarios WHERE email = ?').get('admin@miempresa.com');
@@ -192,11 +193,11 @@ if (!adminExists) {
 const superAdminExists = db.prepare('SELECT id FROM usuarios WHERE email = ?').get('adminsmartvoice@gmail.com');
 if (!superAdminExists) {
   const hashSuperAdmin = bcrypt.hashSync('Emely2026$', 10);
-  const rolAdmin = db.prepare('SELECT id FROM roles WHERE nombre = ?').get('admin');
+    const rolSuperAdmin = db.prepare('SELECT id FROM roles WHERE nombre = ?').get('superadmin');
   db.prepare(`
     INSERT INTO usuarios (nombre_completo, email, password_hash, rol_id)
     VALUES (?, ?, ?, ?)
-  `).run('Superadministrador', 'adminsmartvoice@gmail.com', hashSuperAdmin, rolAdmin.id);
+    `).run('Superadministrador', 'adminsmartvoice@gmail.com', hashSuperAdmin, rolSuperAdmin.id);
   console.log('✅ Usuario superadmin creado -> email: adminsmartvoice@gmail.com / password: Emely2026$');
 }
 
