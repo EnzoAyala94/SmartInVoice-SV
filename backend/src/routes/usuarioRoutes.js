@@ -4,7 +4,7 @@ const { verificarToken, requiereRol } = require('../middleware/auth');
 const { listarUsuarios, crearUsuario, cambiarEstado, restablecerPassword } = require('../controllers/usuarioController');
 
 router.use(verificarToken);
-router.use(requiereRol('admin, 'superadmin'')); // Solo el admin gestiona usuarios internos
+router.use(requiereRol('admin', 'superadmin')); // Solo el admin gestiona usuarios internos
 
 router.get('/', listarUsuarios);
 router.post('/', crearUsuario);
