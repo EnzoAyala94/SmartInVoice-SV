@@ -1,0 +1,565 @@
+/* ============================================================
+   SISTEMA DE DISENO — DTE El Salvador
+   Paleta: institucional / documento fiscal, no generico.
+   ============================================================ */
+
+:root {
+  --bg: #eef1f6;
+  --paper: #ffffff;
+  --ink: #10192b;
+  --ink-soft: #4a5670;
+  --ink-faint: #8892a6;
+  --primary: #17335c;
+  --primary-light: #2c4d80;
+  --gold: #a97c1e;
+  --gold-soft: #f2e6c9;
+  --success: #1f7a4d;
+  --success-bg: #e7f4ec;
+  --danger: #ad2b23;
+  --danger-bg: #fbe9e7;
+  --warn: #9a6b0c;
+  --warn-bg: #fbf1dc;
+  --border: #dde3ec;
+  --border-strong: #c3ccdb;
+  --radius: 6px;
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'IBM Plex Sans', -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root { height: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+input, select, textarea {
+  font-family: inherit;
+  font-size: 14px;
+}
+
+a { color: inherit; }
+
+/* ---------- Layout ---------- */
+
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ---------- Menu hamburguesa (colapsable, funciona en cualquier tamano de pantalla) ---------- */
+
+.app-shell {
+  flex-direction: column;
+}
+
+.mobile-topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--primary);
+  color: #fff;
+  padding: 14px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 60;
+}
+
+.mobile-topbar-brand {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-topbar .mark {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.mobile-topbar .brand-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+}
+.mobile-topbar .sub {
+  font-size: 10.5px;
+  color: rgba(255,255,255,0.65);
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  margin-top: 1px;
+  margin-left: 39px;
+}
+
+.hamburger-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 22px;
+  line-height: 1;
+  padding: 6px;
+  cursor: pointer;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 260px;
+  max-width: 80vw;
+  background: var(--primary);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 28px 0;
+  transform: translateX(-100%);
+  transition: transform 0.25s ease;
+  z-index: 100;
+  overflow-y: auto;
+}
+
+.sidebar.abierto {
+  transform: translateX(0);
+}
+
+.sidebar-close-btn {
+  display: block;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  cursor: pointer;
+}
+
+.sidebar-overlay {
+  display: none;
+}
+
+.sidebar-overlay.visible {
+  display: block;
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 16, 28, 0.5);
+  z-index: 90;
+}
+
+.sidebar-brand {
+  padding: 0 24px 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.14);
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.sidebar-brand .mark {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  line-height: 1.25;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand-icon {
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  border-radius: 6px;
+}
+
+.sidebar-brand .sub {
+  font-size: 11px;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  margin-top: 4px;
+  display: block;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 24px;
+  color: rgba(255,255,255,0.72);
+  text-decoration: none;
+  font-size: 13.5px;
+  font-weight: 500;
+  border-left: 3px solid transparent;
+  transition: background 0.15s, color 0.15s;
+}
+
+.nav-item:hover { background: rgba(255,255,255,0.06); color: #fff; }
+
+.nav-item.active {
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  border-left-color: var(--gold);
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding: 16px 24px 0;
+  border-top: 1px solid rgba(255,255,255,0.14);
+  font-size: 12px;
+  color: rgba(255,255,255,0.55);
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 32px 40px;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 24px;
+}
+
+.page-header h1 {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 600;
+  margin: 0 0 4px;
+  color: var(--primary);
+}
+
+.page-header .eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 11px;
+  color: var(--ink-faint);
+  font-weight: 600;
+}
+
+/* ---------- Cards / Panels ---------- */
+
+.panel {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+}
+
+.stat-card .label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--ink-faint);
+  font-weight: 600;
+}
+
+.stat-card .value {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--primary);
+  margin-top: 6px;
+}
+
+.stat-card .value.gold { color: var(--gold); }
+
+.stat-card .sub {
+  font-size: 12px;
+  color: var(--ink-soft);
+  margin-top: 4px;
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 16px;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  font-size: 13.5px;
+  font-weight: 600;
+  transition: filter 0.15s, background 0.15s;
+}
+
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover { filter: brightness(1.12); }
+
+.btn-gold { background: var(--gold); color: #fff; }
+.btn-gold:hover { filter: brightness(1.1); }
+
+.btn-outline {
+  background: transparent;
+  border-color: var(--border-strong);
+  color: var(--ink);
+}
+.btn-outline:hover { background: #f4f6fa; }
+
+.btn-danger-outline {
+  background: transparent;
+  border-color: var(--danger);
+  color: var(--danger);
+}
+.btn-danger-outline:hover { background: var(--danger-bg); }
+
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btn-sm { padding: 6px 11px; font-size: 12.5px; }
+
+/* ---------- Forms ---------- */
+
+.field { margin-bottom: 16px; }
+
+.field label {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  margin-bottom: 5px;
+}
+
+.field input, .field select, .field textarea {
+  width: 100%;
+  padding: 9px 11px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  background: #fff;
+  color: var(--ink);
+}
+
+.field input:focus, .field select:focus, .field textarea:focus {
+  outline: none;
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 3px rgba(44,77,128,0.12);
+}
+
+.field-row { display: flex; gap: 14px; }
+.field-row .field { flex: 1; }
+
+.error-text {
+  color: var(--danger);
+  font-size: 12.5px;
+  margin-top: -8px;
+  margin-bottom: 14px;
+}
+
+/* ---------- Tables ---------- */
+
+table.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.data-table th {
+  text-align: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--ink-faint);
+  font-weight: 600;
+  padding: 10px 12px;
+  border-bottom: 2px solid var(--border);
+}
+
+.data-table td {
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+.data-table tr:hover td { background: #f8fafc; }
+
+.mono { font-family: var(--font-mono); font-size: 12px; color: var(--ink-soft); }
+
+/* ---------- Estado badges + Sello (elemento distintivo) ---------- */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.badge-procesado { background: var(--success-bg); color: var(--success); }
+.badge-pendiente { background: var(--warn-bg); color: var(--warn); }
+.badge-rechazado { background: var(--danger-bg); color: var(--danger); }
+.badge-anulado { background: #ece9f5; color: #5b4b9e; }
+.badge-contingencia { background: var(--warn-bg); color: var(--warn); }
+
+/* El "sello" — elemento firma del sistema: emula un timbre oficial
+   estampado sobre el documento cuando el DTE fue aceptado por el MH. */
+.sello {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  border: 2px solid var(--success);
+  color: var(--success);
+  font-family: var(--font-display);
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: center;
+  transform: rotate(-8deg);
+  line-height: 1.2;
+  flex-shrink: 0;
+}
+
+.sello::before {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border: 1px dashed var(--success);
+  border-radius: 50%;
+  opacity: 0.6;
+}
+
+.sello.pendiente {
+  border-color: var(--warn);
+  color: var(--warn);
+}
+.sello.pendiente::before { border-color: var(--warn); }
+
+/* ---------- Login ---------- */
+
+.login-screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, var(--primary) 0%, #0d1c33 100%);
+}
+
+.login-card {
+  width: 380px;
+  max-width: 92vw;
+  box-sizing: border-box;
+  background: var(--paper);
+  border-radius: 10px;
+  padding: 36px 32px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+}
+
+.login-card .mark {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.login-card .mark .brand-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+}
+
+.brand-lockup {
+  display: block;
+  height: 44px;
+  width: auto;
+  max-width: 100%;
+  margin-bottom: 4px;
+}
+
+.login-card .sub {
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  margin-bottom: 26px;
+  display: block;
+}
+
+.login-error {
+  background: var(--danger-bg);
+  color: var(--danger);
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+/* ---------- Utilidades ---------- */
+
+.flex-between { display: flex; justify-content: space-between; align-items: center; }
+.text-right { text-align: right; }
+.mt-24 { margin-top: 24px; }
+.mb-16 { margin-bottom: 16px; }
+.muted { color: var(--ink-faint); }
+.empty-state {
+  text-align: center;
+  padding: 50px 20px;
+  color: var(--ink-faint);
+}
+.empty-state .icon { font-size: 32px; margin-bottom: 10px; }
+
+/* ---------- Pie de pagina ---------- */
+
+.app-footer {
+  margin-top: 40px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  font-size: 11.5px;
+  color: var(--ink-faint);
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.app-footer .dot { opacity: 0.6; }
+
+.login-screen .app-footer {
+  border-top: none;
+  color: rgba(255,255,255,0.45);
+  margin-top: 28px;
+  width: 380px;
+  max-width: 92vw;
+}
