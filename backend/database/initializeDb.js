@@ -196,6 +196,7 @@ CREATE TABLE IF NOT EXISTS solicitudes_cliente (
   insertRol.run('facturador', 'Puede emitir y anular DTE');
   insertRol.run('contador', 'Solo lectura y reportes');
 
+  insertRol.run('superadmin', 'Super administrador, acceso total al sistema');
   // Insertar usuarios
   const adminExists = db.prepare('SELECT id FROM usuarios WHERE email = ?').get('admin@miempresa.com');
   if (!adminExists) {
@@ -207,15 +208,15 @@ CREATE TABLE IF NOT EXISTS solicitudes_cliente (
     `).run('Administrador', 'admin@miempresa.com', hash, rolAdmin.id);
     console.log('✅ Usuario admin creado -> email: admin@miempresa.com / password: Admin123!');
   }
-
-  const superAdminExists = db.prepare('SELECT id FROM usuarios WHERE email = ?').get('adminsmartvoice@gmail.com');
+  
+    const superAdminExists = db.prepare('SELECT id FROM usuarios WHERE email = ?').get('adminsmartvoice@gmail.com');
   if (!superAdminExists) {
     const hashSuperAdmin = bcrypt.hashSync('Emely2026$', 10);
-    const rolAdmin = db.prepare('SELECT id FROM roles WHERE nombre = ?').get('admin');
+    const rolSuperAdmin = db.prepare('SELECT id FROM roles WHERE nombre = ?').get('superadmin');
     db.prepare(`
       INSERT INTO usuarios (nombre_completo, email, password_hash, rol_id)
       VALUES (?, ?, ?, ?)
-    `).run('Superadministrador', 'adminsmartvoice@gmail.com', hashSuperAdmin, rolAdmin.id);
+    `).run('Superadministrador', 'adminsmartvoice@gmail.com', hashSuperAdAmin, rolSuperAdmin.id);
     console.log('✅ Usuario superadmin creado -> email: adminsmartvoice@gmail.com / password: Emely2026$');
   }
 
