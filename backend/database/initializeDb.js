@@ -220,6 +220,9 @@ CREATE TABLE IF NOT EXISTS solicitudes_cliente (
         `).run('Superadministrador', 'adminsmartvoice@gmail.com', hashSuperAdmin, rolSuperAdmin.id);
     console.log('✅ Usuario superadmin creado -> email: adminsmartvoice@gmail.com / password: Emely2026$');
   }
+  // Corrige el rol del superadmin si el usuario ya existia desde antes
+  const rolSuperAdminFix = db.prepare('SELECT id FROM roles WHERE nombre ' + '=' + ' ?').get('superadmin');
+  db.prepare('UPDATE usuarios SET rol_id ' + '=' + ' ? WHERE email ' + '=' + ' ?').run(rolSuperAdminFix.id, 'adminsmartvoice@gmail.com');
 
   db.close();
   console.log('✅ Base de datos inicializada exitosamente en:', dbPath);
