@@ -1,0 +1,32 @@
+<svg width="640" height="160" viewBox="0 0 640 160" xmlns="http://www.w3.org/2000/svg">
+  <!-- ===== Icono ===== -->
+  <g transform="translate(10, 10) scale(0.7)">
+    <rect x="0" y="0" width="200" height="200" rx="40" fill="#17335C"/>
+    <path d="M62 44
+             H120
+             L138 62
+             V152
+             A8 8 0 0 1 130 160
+             H62
+             A8 8 0 0 1 54 152
+             V52
+             A8 8 0 0 1 62 44 Z"
+          fill="#FFFFFF"/>
+    <path d="M120 44 L138 62 H128 A8 8 0 0 1 120 54 Z" fill="#DCE6F1"/>
+    <rect x="70" y="76"  width="52" height="7" rx="3.5" fill="#17335C" opacity="0.85"/>
+    <rect x="70" y="93"  width="52" height="7" rx="3.5" fill="#17335C" opacity="0.5"/>
+    <rect x="70" y="110" width="34" height="7" rx="3.5" fill="#17335C" opacity="0.5"/>
+    <rect x="70" y="131" width="30" height="9" rx="4.5" fill="#A97C1E"/>
+    <circle cx="140" cy="140" r="30" fill="#A97C1E" stroke="#17335C" stroke-width="4"/>
+    <path d="M126 140 L136 150 L156 128" fill="none" stroke="#FFFFFF" stroke-width="7"
+          stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- ===== Nombre ===== -->
+  <text x="185" y="95" font-family="Georgia, 'Times New Roman', serif" font-weight="bold"
+        font-size="54" fill="#17335C">Smart<tspan fill="#A97C1E">Invoice</tspan></text>
+
+  <!-- ===== Tagline ===== -->
+  <text x="187" y="122" font-family="Arial, Helvetica, sans-serif" font-size="17"
+        letter-spacing="1.5" fill="#4A5670">FACTURAR, SIN COMPLICACIONES</text>
+</svg>

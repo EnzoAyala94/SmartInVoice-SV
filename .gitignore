@@ -1,0 +1,18 @@
+# Dependencias
+node_modules/
+
+# Variables de entorno (contienen datos sensibles, nunca subir a GitHub)
+.env
+.env.local
+
+# Base de datos (datos reales de facturacion, no deben ir al repositorio)
+backend/database/*.sqlite
+backend/database/*.sqlite-shm
+backend/database/*.sqlite-wal
+
+# Build del frontend
+frontend/dist/
+
+# Logs y archivos del sistema
+*.log
+.DS_Store
