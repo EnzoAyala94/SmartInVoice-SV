@@ -188,6 +188,9 @@ if (!adminExists) {
   `).run('Administrador', 'admin@miempresa.com', hash, rolAdmin.id);
   console.log('✅ Usuario admin creado -> email: admin@miempresa.com / password: Admin123!');
 }
+// Corrige el rol del superadmin si el usuario ya existia desde antes
+const rolSuperAdminFix = db.prepare('SELECT id FROM roles WHERE nombre = ?').get('superadmin');
+db.prepare('UPDATE usuarios SET rol_id = ? WHERE email = ?').run(rolSuperAdminFix.id, 'adminsmartvoice@gmail.com');
 
 // Seed de usuario superadministrador (password: Emely2026$)
 const superAdminExists = db.prepare('SELECT id FROM usuarios WHERE email = ?').get('adminsmartvoice@gmail.com');
@@ -200,6 +203,7 @@ if (!superAdminExists) {
     `).run('Superadministrador', 'adminsmartvoice@gmail.com', hashSuperAdmin, rolSuperAdmin.id);
   console.log('✅ Usuario superadmin creado -> email: adminsmartvoice@gmail.com / password: Emely2026$');
 }
+
 
 console.log('Base de datos inicializada correctamente en:', dbPath);
 db.close();
