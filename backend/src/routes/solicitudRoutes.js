@@ -6,6 +6,6 @@ const { listarSolicitudes, responderSolicitud } = require('../controllers/solici
 router.use(verificarToken);
 
 router.get('/', listarSolicitudes);
-router.put('/:id', requiereRol('admin', 'facturador', 'contador'), responderSolicitud);
+router.put('/:id', requiereRol('admin', 'superadmin', 'facturador', 'contador'), responderSolicitud);
 
 module.exports = router;
