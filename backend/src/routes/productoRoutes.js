@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const { verificarToken } = require('../middleware/auth');
+const { verificarToken, requiereRol } = require('../middleware/auth');
 const {
   listarProductos, crearProducto, actualizarProducto, eliminarProducto,
 } = require('../controllers/productoController');
 
 router.use(verificarToken);
 router.get('/', listarProductos);
-router.post('/', crearProducto);
-router.put('/:id', actualizarProducto);
-router.delete('/:id', eliminarProducto);
+router.post('/', requiereRol('admin', 'superadmin', 'facturador'), crearProducto);
+router.put('/:id', requiereRol('admin', 'superadmin', 'facturador'), actualizarProducto);
+router.delete('/:id', requiereRol('admin', 'superadmin', 'facturador'), eliminarProducto);
 
 module.exports = router;
