@@ -23,7 +23,11 @@ const ROLES_LABEL = {
 export default function Layout({ children }) {
   const { usuario, logout } = useAuth();
   const esAdminInterno = usuario?.rol === 'admin' || usuario?.rol === 'superadmin';
-  const nav = esAdminInterno ? [...NAV, { to: '/usuarios', label: 'Usuarios' }] : NAV;
+  const esContador = usuario?.rol === 'contador';
+  // El rol contador es de solo lectura y reportes: no emite ni anula DTE,
+  // asi que no mostramos "Emitir DTE" en su menu.
+  let nav = esContador ? NAV.filter((item) => item.to !== '/emitir') : NAV;
+  if (esAdminInterno) nav = [...nav, { to: '/usuarios', label: 'Usuarios' }];
   const [menuAbierto, setMenuAbierto] = useState(false);
 
   function cerrarMenu() {
