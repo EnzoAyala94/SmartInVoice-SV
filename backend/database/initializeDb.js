@@ -216,7 +216,7 @@ CREATE TABLE IF NOT EXISTS solicitudes_cliente (
     db.prepare(`
       INSERT INTO usuarios (nombre_completo, email, password_hash, rol_id)
       VALUES (?, ?, ?, ?)
-    `).run('Superadministrador', 'adminsmartvoice@gmail.com', hashSuperAdAmin, rolSuperAdmin.id);
+        `).run('Superadministrador', 'adminsmartvoice@gmail.com', hashSuperAdmin, rolSuperAdmin.id);
     console.log('✅ Usuario superadmin creado -> email: adminsmartvoice@gmail.com / password: Emely2026$');
   }
 
