@@ -2,8 +2,11 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../api/client';
 import EstadoBadge from '../components/EstadoBadge';
+import { useAuth } from '../context/AuthContext';
 
 export default function Dashboard() {
+  const { usuario } = useAuth();
+  const puedeEmitir = usuario?.rol !== 'contador';
   const [data, setData] = useState(null);
   const [error, setError] = useState('');
 
@@ -25,7 +28,7 @@ export default function Dashboard() {
           <span className="eyebrow">Resumen</span>
           <h1>Panel general</h1>
         </div>
-        <Link to="/emitir" className="btn btn-gold">+ Emitir DTE</Link>
+        {puedeEmitir && <Link to="/emitir" className="btn btn-gold">+ Emitir DTE</Link>}
       </div>
 
       <div className="card-grid">
@@ -63,7 +66,11 @@ export default function Dashboard() {
         {data.ultimosDtes.length === 0 ? (
           <div className="empty-state">
             <div className="icon">🧾</div>
-            Aun no has emitido ningun DTE. <Link to="/emitir">Emitir el primero</Link>
+            {puedeEmitir ? (
+              <>Aun no has emitido ningun DTE. <Link to="/emitir">Emitir el primero</Link></>
+            ) : (
+              'Aun no se ha emitido ningun DTE.'
+            )}
           </div>
         ) : (
           <table className="data-table">
