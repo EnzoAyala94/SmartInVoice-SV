@@ -11,10 +11,10 @@ const { generarExcelFacturaIndividual } = require('../services/reporteService');
 
 router.use(verificarToken);
 
-router.post('/', requiereRol('admin', 'facturador', 'contador'), emitirDTE);
+router.post('/', requiereRol('admin', 'superadmin', 'facturador', 'contador'), emitirDTE);
 router.get('/', listarDTEs);
 router.get('/:id', obtenerDTE);
-router.post('/:id/anular', requiereRol('admin', 'facturador', 'contador'), anularDTE);
+router.post('/:id/anular', requiereRol('admin', 'superadmin', 'facturador', 'contador'), anularDTE);
 
 router.get('/:id/pdf', (req, res) => {
   const dte = db.prepare('SELECT * FROM dtes WHERE id = ?').get(req.params.id);
